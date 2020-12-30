@@ -1,9 +1,10 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
+    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" 
+      class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">Login Form</h3>
+        <h3 class="title">谷粒商城后台管理</h3>
       </div>
 
       <el-form-item prop="username">
@@ -41,33 +42,29 @@
         </span>
       </el-form-item>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
-
-      <div class="tips">
-        <span style="margin-right:20px;">username: admin</span>
-        <span> password: any</span>
-      </div>
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" 
+        @click.native.prevent="handleLogin">登  陆</el-button>
 
     </el-form>
   </div>
 </template>
 
 <script>
-import { validUsername } from '@/utils/validate'
 
 export default {
   name: 'Login',
+  
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
+      if (value.length<4) {
+        callback(new Error('用户名长度不能小于4位'))
       } else {
         callback()
       }
     }
     const validatePassword = (rule, value, callback) => {
       if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
+        callback(new Error('密码长度不能小于6位'))
       } else {
         callback()
       }
@@ -78,7 +75,7 @@ export default {
         password: '111111'
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
+        username: [{ required: true, validator: validateUsername }],
         password: [{ required: true, trigger: 'blur', validator: validatePassword }]
       },
       loading: false,
@@ -86,18 +83,24 @@ export default {
       redirect: undefined
     }
   },
+  
   watch: {
     $route: {
       handler: function(route) {
         this.redirect = route.query && route.query.redirect
       },
-      immediate: true
+      immediate: true // 监视回调初始就会执行一次, 而不是改变才调用
     }
   },
+  
   methods: {
+
+    /* 
+    切换密码的显示/隐藏
+    */
     showPwd() {
       if (this.passwordType === 'password') {
-        this.passwordType = ''
+        this.passwordType = 'text'
       } else {
         this.passwordType = 'password'
       }
@@ -105,6 +108,10 @@ export default {
         this.$refs.password.focus()
       })
     },
+
+    /* 
+    点击登陆的回调
+    */
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
@@ -115,9 +122,6 @@ export default {
           }).catch(() => {
             this.loading = false
           })
-        } else {
-          console.log('error submit!!')
-          return false
         }
       })
     }
@@ -138,9 +142,11 @@ $cursor: #fff;
     color: $cursor;
   }
 }
-
 /* reset element-ui css */
 .login-container {
+  background-image: url(~@/assets/bg.jpg);
+  background-color: #2d3a4b;
+  background-size: cover;
   .el-input {
     display: inline-block;
     height: 47px;
