@@ -21,7 +21,7 @@
       <div class="card-panel" @click="handleSetLineChartData('shoppings')"
         :class="{active: currentType==='shoppings'}">
         <div class="card-panel-icon-wrapper icon-shopping">
-          <svg-icon icon-class="shopping" class-name="card-panel-icon" />
+          <svg-icon icon-class="shop" class-name="card-panel-icon" />
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">

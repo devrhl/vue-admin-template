@@ -1,5 +1,5 @@
-import loginAPI from '@/api/acl/login'
-import { getToken, saveToken, removeToken } from '@/utils/auth'
+import {login as loginAPI} from '@/api'
+import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 import {constantRoutes, asyncRoutes, anyRoute} from '@/router/routes'
 import router from '@/router'
@@ -61,14 +61,7 @@ const mutations = {
   },
 
   RESET_USER (state) {
-    state.name = ""
-    state.avatar = ''
-    state.token = ''
-
-    state.roles = []
-    state.buttons = []
-    state.routes = []
-    state.asyncRoutes = []
+    Object.assign(state, getDefaultState())
   },
 
   SET_ROUTES: (state, asyncRoutes) => {
@@ -90,7 +83,7 @@ const actions = {
         .then(result => {
           const { data } = result
           commit('SET_TOKEN', data.token)
-          saveToken(data.token)
+          setToken(data.token)
           resolve()
         }).catch(error => {
           reject(error)

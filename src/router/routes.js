@@ -1,10 +1,10 @@
 import Layout from '@/layout'
 
 // 权限管理
-const User = () => import('@/views/acl/user/list')
-const Role = () => import('@/views/acl/role/list')
-const RoleAuth = () => import('@/views/acl/role/roleAuth')
-const Permission = () => import('@/views/acl/permission/list')
+// const User = () => import('@/views/acl/user/list')
+// const Role = () => import('@/views/acl/role/list')
+// const RoleAuth = () => import('@/views/acl/role/roleAuth')
+// const Permission = () => import('@/views/acl/permission/list')
 
 // 商品管理
 const Category = () => import('@/views/product/category/list')
@@ -88,13 +88,13 @@ export const asyncRoutes = [
     redirect: '/acl/user/list',
     meta: { 
       title: '权限管理', 
-      icon: 'lock' 
+      icon: 'el-icon-lock' 
     },
     children: [
       {
         name: 'User',
         path: 'user/list',
-        component: User,
+        component: () => import('@/views/acl/user/list'),
         meta: { 
           title: '用户管理', 
         },
@@ -102,7 +102,7 @@ export const asyncRoutes = [
       {
         name: 'Role',
         path: 'role/list',
-        component: Role,
+        component: () => import('@/views/acl/role/list'),
         meta: { 
           title: '角色管理', 
         },
@@ -110,7 +110,7 @@ export const asyncRoutes = [
       {
         name: 'RoleAuth',
         path: 'role/auth/:id',
-        component: RoleAuth,
+        component: () => import('@/views/acl/role/roleAuth'),
         meta: {
           activeMenu: '/acl/role/list',
           title: '角色授权',
@@ -120,7 +120,7 @@ export const asyncRoutes = [
       {
         name: 'Permission',
         path: 'permission/list',
-        component: Permission,
+        component: () => import('@/views/acl/permission/list'),
         meta: { 
           title: '菜单管理',
         },
@@ -176,7 +176,7 @@ export const asyncRoutes = [
         path: 'sku/list',
         component: Sku,
         meta: { 
-          title: 'Sku管理', 
+          title: 'SKU管理', 
         },
       }
     ]

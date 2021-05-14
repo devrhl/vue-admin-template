@@ -35,7 +35,7 @@
 
       <el-table-column prop="username" label="用户名" width="150" />
       <el-table-column prop="nickName" label="用户昵称" />
-      <el-table-column prop="roleName" label="权限列表" />
+      <el-table-column prop="roleName" label="角色列表" />
       
       <el-table-column prop="gmtCreate" label="创建时间" width="180"/>
       <el-table-column prop="gmtModified" label="更新时间" width="180"/>
